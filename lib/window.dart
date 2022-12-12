@@ -17,6 +17,9 @@ const _kInitialize = "Initialize";
 /// Sets window effect.
 const _kSetEffect = "SetEffect";
 
+/// Sets window effect.
+const _kIsMicaAvailable = "IsMicaAvailable";
+
 /// Hides window controls
 const _kHideWindowControls = "HideWindowControls";
 
@@ -240,6 +243,10 @@ class Window {
         'dark': dark,
       },
     );
+  }
+
+  static Future<bool?> isMicaAvailable() {
+    return _kChannel.invokeMethod<bool>(_kIsMicaAvailable);
   }
 
   /// Hides window controls.

@@ -82,6 +82,7 @@ namespace {
 static constexpr auto kChannelName = "com.alexmercerind/flutter_acrylic";
 static constexpr auto kInitialize = "Initialize";
 static constexpr auto kSetEffect = "SetEffect";
+static constexpr auto kIsMicaAvailable = "IsMicaAvailable";
 static constexpr auto kHideWindowControls = "HideWindowControls";
 static constexpr auto kShowWindowControls = "ShowWindowControls";
 static constexpr auto kEnterFullscreen = "EnterFullscreen";
@@ -250,6 +251,9 @@ void FlutterAcrylicPlugin::HandleMethodCall(
     }
     window_effect_last_ = effect;
     result->Success();
+  } else if (call.method_name() == kIsMicaAvailable) {
+    bool available = GetWindowsVersion().dwBuildNumber >= 22000;
+    result->Success(available);
   } else if (call.method_name() == kHideWindowControls) {
     ::SetWindowLong(GetParentWindow(), GWL_STYLE,
                     ::GetWindowLong(GetParentWindow(), GWL_STYLE) &
